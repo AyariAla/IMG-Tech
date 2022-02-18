@@ -1,25 +1,26 @@
 import React from 'react';
-import LoginPage from './Pages/LoginPage.component';
-import HomePage from './Pages/HomePage.component';
-import RegisterPage from './Pages/RegisterPage.component';
+import { Container } from 'react-bootstrap';
+import LoginScreen from './Screens/LoginScreen.component';
+import HomeScreen from './Screens/HomeScreen.component';
+import RegisterScreen from './Screens/RegisterScreen.component';
 import Header from './Components/Header.component';
 
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 //  >  <import { BrowserRouter } from 'react-router-dom';
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/signin' component={LoginPage} />
-          <Route path='/signup' component={RegisterPage} />
-        </Switch>
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <Router>
+      <Header />
+      <main className='py-3'>
+        <Container>
+          <Route exact path='/' component={HomeScreen} />
+          <Route path='/login' component={LoginScreen} />
+          <Route path='/register' component={RegisterScreen} />
+        </Container>
+      </main>
+    </Router>
+  );
+};
 
 export default App;

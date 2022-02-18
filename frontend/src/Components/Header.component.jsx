@@ -1,60 +1,64 @@
 import React from 'react';
-
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { signout } from '../Redux/user/userActions';
-
+import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import SearchBox from './SearchBox.component';
-import { Link } from 'react-router-dom';
+import { logout } from '../Redux/user/userActions';
 
 const Header = () => {
   const dispatch = useDispatch();
 
-  const userSignIn = useSelector((state) => state.userSignIn);
-  const { userInfo } = userSignIn;
-  const signoutHandler = () => {
-    dispatch(signout);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const logoutHandler = () => {
+    dispatch(logout());
   };
 
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnselect>
+      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
-          <Navbar.Brand
-            as={Link}
-            to='/'
-            className='d-flex justify-content-start'
-          >
-            IMAGE TECHNOLOGY
-          </Navbar.Brand>
+          <LinkContainer to='/'>
+            <Navbar.Brand>IMAGE TECHNOLOGY</Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <SearchBox className='d-flex justify-content-between' />
+            <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className='ml-auto'>
-              <Nav.Link as={Link} to='/'>
-                <i className='fas fa-shopping-cart'></i>
-                CART
-              </Nav.Link>
+              <LinkContainer to='/cart'>
+                <Nav.Link>
+                  <i className='fas fa-shopping-cart'></i> Cart
+                </Nav.Link>
+              </LinkContainer>
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
-                  <NavDropdown.Item as={Link} to='/profile'>
-                    Profile
-                  </NavDropdown.Item>
-                  <NavDropdown.Item onClick={signoutHandler}>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <Nav.Link as={Link} to='/signin'>
-                  <i className='fas fa-user'></i>
-                  Sign In
-                </Nav.Link>
+                <LinkContainer to='/login'>
+                  <Nav.Link>
+                    <i className='fas fa-user'></i> Sign In
+                  </Nav.Link>
+                </LinkContainer>
               )}
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id='adminMenu'>
-                  <NavDropdown.Item as={Link} to='/admin/productList'>
-                    Products
-                  </NavDropdown.Item>
+                <NavDropdown title='Admin' id='adminmenu'>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
                 </NavDropdown>
               )}
             </Nav>
@@ -66,33 +70,3 @@ const Header = () => {
 };
 
 export default Header;
-/** 
- *               <Navbar bg='dark' variant='dark' expand='lg'>
-        <Container>
-          <Navbar.Brand as={Link} to='/'>
-            IMAGE TECHNOLOGY
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls='basic-navbar-nav' />
-
-          <Form className='d-flex'>
-            <FormControl
-              type='search'
-              placeholder='Search Products ...'
-              className='me-2'
-              aria-label='Search'
-            />
-            <Button variant='outline-success'>Search</Button>
-          </Form>
-          <Nav className='ml-auto'>
-            <Nav.Link as={Link} to='/'>
-              <i className='fas fa-shopping-cart'></i>
-              CART
-            </Nav.Link>
-            <Nav.Link as={Link} to='/login'>
-              <i className='fas fa-user'></i>
-              SIGN IN
-            </Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
-*/

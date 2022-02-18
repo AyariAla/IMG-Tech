@@ -2,8 +2,8 @@ import React from 'react';
 
 import ProductCarousel from '../Components/ProductCarousel.component';
 //  >  <
-const HomePage = () => {
+const HomeScreen = () => {
   return <ProductCarousel />;
 };
 
-export default HomePage;
+export default HomeScreen;

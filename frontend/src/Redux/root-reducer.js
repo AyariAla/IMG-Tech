@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { userSigninReducer, userRegisterReducer } from './user/userReducers';
+import { userLoginReducer, userRegisterReducer } from './user/userReducers';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -10,7 +10,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  userSignIn: userSigninReducer,
+  userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
 });
 

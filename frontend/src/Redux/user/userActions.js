@@ -1,20 +1,18 @@
-import Axios from 'axios';
+import axios from 'axios';
 import {
-  USER_REGISTER_FAILURE,
+  USER_LOGIN_FAIL,
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
+  USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_SIGNIN_REQUEST,
-  USER_SIGNIN_SUCCESS,
-  USER_SIGNIN_FAILURE,
-  USER_SIGNOUT,
-} from './userTypes';
+} from '../Constants/userConstants';
 
-//  >  <
-
-export const signIn = (email, password) => async (dispatch) => {
+export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({
-      type: USER_SIGNIN_REQUEST,
+      type: USER_LOGIN_REQUEST,
     });
 
     const config = {
@@ -23,27 +21,33 @@ export const signIn = (email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await Axios.post(
-      '/auth/signup',
+    const { data } = await axios.post(
+      '/auth/signin',
       { email, password },
       config
     );
 
     dispatch({
-      type: USER_SIGNIN_SUCCESS,
+      type: USER_LOGIN_SUCCESS,
       payload: data,
     });
 
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
-      type: USER_SIGNIN_FAILURE,
+      type: USER_LOGIN_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
     });
   }
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem('userInfo');
+  dispatch({ type: USER_LOGOUT });
+  document.location.href = '/login';
 };
 
 export const register = (name, email, password) => async (dispatch) => {
@@ -58,8 +62,8 @@ export const register = (name, email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await Axios.post(
-      '/auth/signin',
+    const { data } = await axios.post(
+      '/auth/signup',
       { name, email, password },
       config
     );
@@ -70,26 +74,18 @@ export const register = (name, email, password) => async (dispatch) => {
     });
 
     dispatch({
-      type: USER_SIGNIN_SUCCESS,
+      type: USER_LOGIN_SUCCESS,
       payload: data,
     });
 
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
-      type: USER_REGISTER_FAILURE,
+      type: USER_REGISTER_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
     });
   }
-};
-
-export const signout = () => (dispatch) => {
-  localStorage.removeItem('userInfo');
-  dispatch({
-    type: USER_SIGNOUT,
-  });
-  document.location.href = '/login';
 };
