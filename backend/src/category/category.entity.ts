@@ -1,5 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn ,  ManyToOne } from "typeorm";
 import { CategoryStatus } from "./category.model";
+import { User } from "src/auth/user.entity";
+
+
 @Entity()
 export class Category{
 @PrimaryGeneratedColumn('uuid')
@@ -8,6 +11,8 @@ id: string;
 name: string;
 @Column({ type: 'varchar' })
 description: CategoryStatus;
+
+
 
 
 //relation here later 

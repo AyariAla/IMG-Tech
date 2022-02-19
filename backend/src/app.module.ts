@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { User } from './auth/user.entity';
+import { Category } from './category/category.entity';
 import { CategoryModule } from './category/category.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -16,9 +18,11 @@ import { CategoryModule } from './category/category.module';
       database: 'test',
       autoLoadEntities: true,
       synchronize: true,
-      entities: [User],
+      entities: [User,
+      Category],
     }),
     CategoryModule,
+    ProductModule,
   ],
 })
 export class AppModule {}
