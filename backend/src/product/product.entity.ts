@@ -1,19 +1,19 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Product {
-    @PrimaryGeneratedColumn('uuid')
-    id : string ; 
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    nam : string ; 
+  @Column()
+  name: string;
 
-    @Column()
-    Price : number ;
+  @Column()
+  price: number;
 
-    @Column()
-    quantity : number ;
+  @Column()
+  quantity: number;
 
-    /*@Column()
+  /*@Column()
     image : */
 }

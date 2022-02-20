@@ -5,6 +5,7 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { GetCategorysFilterDto } from './dto/get-category-filter.dto';
 @EntityRepository(Category)
 export class CategorysRepository extends Repository<Category> {
+  
   async getCategory(
     filterDto: GetCategorysFilterDto /*later add category in product*/,
   ): Promise<Category[]> {
