@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Category } from 'src/category/category.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -8,4 +8,5 @@ export class User {
   username: string;
   @Column()
   password: string;
+
 }
