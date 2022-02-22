@@ -2,11 +2,11 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProductdto } from './dto/create-product.dto';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
-import { ProductStatus } from './product-model';
+
 import { Product } from './product.entity';
 import { ProductRepository } from './product.repository';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { type } from 'os';
+
 @Injectable()
 export class ProductService {
   constructor(
@@ -19,7 +19,7 @@ export class ProductService {
   }
 
   getProducts(filterDto: GetProductsFilterDto): Promise<Product[]> {
-    return this.productRepository.getProducts(filterDto); //// to get all tasks just belongs to that user
+    return this.productRepository.getProducts(filterDto);
   }
 
   async getProductById(id: string): Promise<Product> {
@@ -40,7 +40,6 @@ export class ProductService {
   async updateProduct(
     id: string,
     updateProductDto: UpdateProductDto,
-    // later in product identify category
   ): Promise<Product> {
     const product = await this.getProductById(id);
     const { price, quantity } = updateProductDto;

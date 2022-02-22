@@ -1,3 +1,3 @@
-export class CategoryStatus{
-    description: string ;
+export class CategoryStatus {
+  description: string;
 }

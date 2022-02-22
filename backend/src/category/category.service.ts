@@ -4,9 +4,6 @@ import { Category } from './category.entity';
 import { CategorysRepository } from './categorys.repository';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { GetCategorysFilterDto } from './dto/get-category-filter.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
-
-import { Body, Param } from '@nestjs/common';
 import { CategoryStatus } from './category.model';
 @Injectable()
 export class CategoryService {
@@ -16,9 +13,7 @@ export class CategoryService {
   ) {}
 
   getCategory(filterDto: GetCategorysFilterDto): Promise<Category[]> {
-    return this.categoryReposoitory.getCategory(
-      filterDto /*later in product i pass here the catgeory*/,
-    );
+    return this.categoryReposoitory.getCategory(filterDto);
   }
 
   createCategory(createCategoryDto: CreateCategoryDto): Promise<Category> {
@@ -41,7 +36,6 @@ export class CategoryService {
   async updateCategory(
     id: string,
     description: CategoryStatus,
-    // later in product identify category
   ): Promise<Category> {
     const category = await this.getCategoryById(id);
     category.description = description;

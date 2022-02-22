@@ -11,11 +11,11 @@ import {
 import { CreateProductdto } from './dto/create-product.dto';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { ProductStatus } from './product-model';
 import { Product } from './product.entity';
-
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ProductService } from './product.service';
-
+//@UseGuards(AuthGuard())
 @Controller('product')
 export class ProductController {
   constructor(private productService: ProductService) {}
@@ -45,7 +45,6 @@ export class ProductController {
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-    //const { price } = updateProductDto;
     return this.productService.updateProduct(id, updateProductDto);
   }
 }
