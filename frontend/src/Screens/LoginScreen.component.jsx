@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../Components/Loader.component';
 import FormContainer from '../Components/FormContainer.component';
 import { login } from '../Redux/user/userActions';
+import Message from '../Components/Message.component';
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('');
@@ -31,7 +32,8 @@ const LoginScreen = ({ location, history }) => {
   return (
     <FormContainer>
       <h1>Sign In</h1>
-      {loading && <Loader />}
+      {error && <Message variant='danger'>{error}</Message>}
+      { loading && <Loader/>}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='email'>
           <Form.Label>Email Address</Form.Label>

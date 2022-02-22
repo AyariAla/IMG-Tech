@@ -16,6 +16,7 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     const config = {
+      baseURL: 'http://localhost:3000', 
       headers: {
         'Content-Type': 'application/json',
       },
@@ -57,6 +58,7 @@ export const register = (name, email, password) => async (dispatch) => {
     });
 
     const config = {
+      baseURL: 'http://localhost:3000', 
       headers: {
         'Content-Type': 'application/json',
       },
