@@ -15,7 +15,7 @@ import { GetCategorysFilterDto } from './dto/get-category-filter.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { AuthGuard } from '@nestjs/passport';
 @Controller('category')
-//@UseGuards(AuthGuard())
+@UseGuards(AuthGuard())
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 

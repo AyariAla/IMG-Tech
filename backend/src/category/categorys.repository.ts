@@ -13,7 +13,6 @@ export class CategorysRepository extends Repository<Category> {
         { search: `%${search}%` },
       );
     }
-
     const categorys = await query.getMany();
     return categorys;
   }

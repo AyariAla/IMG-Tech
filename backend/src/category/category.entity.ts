@@ -18,7 +18,10 @@ export class Category {
   @Column({ type: 'varchar' })
   description: CategoryStatus;
 
-  @OneToMany((_type) => Product, (product) => product.category, { eager: true })
+  @OneToMany(
+    (_type) => Product,
+    (product) => product.category /*{ eager: true }*/,
+  )
   product: Product[];
 
   //relation here later

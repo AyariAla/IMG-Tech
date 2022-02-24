@@ -1,5 +1,4 @@
 import { IsNotEmpty } from 'class-validator';
-import { Column } from 'typeorm';
 
 export class CreateProductdto {
   @IsNotEmpty()
@@ -12,5 +11,5 @@ export class CreateProductdto {
   quantity: number;
 
   @IsNotEmpty()
-  category: number;
+  categoryID: number;
 }

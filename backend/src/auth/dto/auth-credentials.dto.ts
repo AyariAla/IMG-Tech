@@ -1,4 +1,11 @@
-import { IsEmail, IsString, Matches, MaxLength, MinLength, Validate } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+  Validate,
+} from 'class-validator';
 import { CustomMatchPasswords } from '../validate-password';
 
 export class AuthCredentialsDto {
@@ -17,15 +24,12 @@ export class AuthCredentialsDto {
   @MaxLength(32)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'password is weak',
-  }) 
+  })
   password: string;
 
   @IsString()
   @MinLength(8)
   @MaxLength(32)
   @Validate(CustomMatchPasswords, ['password'])
-  passwordConfirm: string;   
-
-
-
+  passwordConfirm: string;
 }

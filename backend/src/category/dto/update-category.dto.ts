@@ -1,5 +1,5 @@
-import { CategoryStatus } from "../category.model";
+import { CategoryStatus } from '../category.model';
 
-export class UpdateCategoryDto{
-description: CategoryStatus ;
+export class UpdateCategoryDto {
+  description: CategoryStatus;
 }

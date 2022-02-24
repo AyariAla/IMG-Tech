@@ -15,7 +15,7 @@ import { Product } from './product.entity';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ProductService } from './product.service';
-//@UseGuards(AuthGuard())
+@UseGuards(AuthGuard())
 @Controller('product')
 export class ProductController {
   constructor(private productService: ProductService) {}
@@ -26,7 +26,7 @@ export class ProductController {
   }
 
   @Get()
-  getProducts(@Query() filterDto: GetProductsFilterDto): Promise<Product[]> {
+  getProducts(@Body() filterDto: GetProductsFilterDto): Promise<Product[]> {
     return this.productService.getProducts(filterDto);
   }
 
