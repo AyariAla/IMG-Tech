@@ -6,7 +6,6 @@ import { Product } from './product.entity';
 import { ProductRepository } from './product.repository';
 import { UpdateProductDto } from './dto/update-product.dto';
 
-
 @Injectable()
 export class ProductService {
   constructor(
@@ -25,7 +24,7 @@ export class ProductService {
   async getProductById(id: string): Promise<Product> {
     const found = await this.productRepository.findOne({ where: { id } });
     if (!found) {
-      throw new NotFoundException(`task with ID"${id}not found`);
+      throw new NotFoundException(`Product with ID"${id}not found`);
     }
     return found;
   }

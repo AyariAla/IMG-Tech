@@ -1,17 +1,10 @@
-import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from 'src/category/category.entity';
-import { CategorysRepository } from 'src/category/categorys.repository';
-import {
-  EntityRepository,
-  getManager,
-  Repository,
-} from 'typeorm';
+import { EntityRepository, getManager, Repository } from 'typeorm';
 import { CreateProductdto } from './dto/create-product.dto';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './product.entity';
 import { getRepository } from 'typeorm';
-
 
 @EntityRepository(Product)
 export class ProductRepository extends Repository<Product> {
@@ -34,14 +27,18 @@ export class ProductRepository extends Repository<Product> {
   }
 
   async getProducts(filterDto: GetProductsFilterDto): Promise<Product[]> {
-    const { search } = filterDto;
+    const { search, categoryID } = filterDto;
     const query = this.createQueryBuilder('product');
     if (search) {
       query.andWhere('LOWER(product.name) LIKE LOWER(:search) ', {
         search: `%${search}%`,
       });
     }
+    if (categoryID) {
+      query.andWhere({ category: categoryID });
+    }
     const products = await query.getMany();
+
     return products;
   }
 
