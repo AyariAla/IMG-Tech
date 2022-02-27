@@ -20,12 +20,10 @@ export class Product {
 
   @Column()
   quantity: number;
-
+  
   @ManyToOne(
     (_type) => Category,
-    (category) => category.product /*{
-    eager: false,
-  }*/,
+    (category) => category.product ,
   )
   @Exclude({ toPlainOnly: true })
   category: Category;
