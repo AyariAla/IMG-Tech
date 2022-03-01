@@ -1,21 +1,26 @@
-import { Column, Entity, PrimaryGeneratedColumn ,  ManyToOne } from "typeorm";
-import { CategoryStatus } from "./category.model";
-import { User } from "src/auth/user.entity";
-
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+} from 'typeorm';
+import { CategoryStatus } from './category.model';
+import { Product } from 'src/product/product.entity';
 
 @Entity()
-export class Category{
-@PrimaryGeneratedColumn('uuid')
-id: string;
-@Column()
-name: string;
-@Column({ type: 'varchar' })
-description: CategoryStatus;
+export class Category {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+  @Column()
+  name: string;
+  @Column({ type: 'varchar' })
+  description: CategoryStatus;
 
+  @OneToMany(
+    (_type) => Product,
+    (product) => product.category ,
+  )
+  product: Product[];
 
-
-
-//relation here later 
-//hide user data here
-//
+  
 }

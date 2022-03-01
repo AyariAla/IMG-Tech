@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { Category } from 'src/category/category.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Product {
@@ -13,7 +20,11 @@ export class Product {
 
   @Column()
   quantity: number;
-
-  /*@Column()
-    image : */
+  
+  @ManyToOne(
+    (_type) => Category,
+    (category) => category.product ,
+  )
+  @Exclude({ toPlainOnly: true })
+  category: Category;
 }

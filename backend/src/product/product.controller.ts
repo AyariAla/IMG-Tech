@@ -3,19 +3,25 @@ import {
   Controller,
   Get,
   Post,
-  Query,
   Param,
   Delete,
   Patch,
+  UseInterceptors,
+  Res,
+  
 } from '@nestjs/common';
 import { CreateProductdto } from './dto/create-product.dto';
 import { GetProductsFilterDto } from './dto/get-products-filter.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { ProductStatus } from './product-model';
 import { Product } from './product.entity';
-
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ProductService } from './product.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadedFile } from '@nestjs/common';
+import { diskStorage } from 'multer';
 
+@UseGuards(AuthGuard())
 @Controller('product')
 export class ProductController {
   constructor(private productService: ProductService) {}
@@ -26,7 +32,7 @@ export class ProductController {
   }
 
   @Get()
-  getProducts(@Query() filterDto: GetProductsFilterDto): Promise<Product[]> {
+  getProducts(@Body() filterDto: GetProductsFilterDto): Promise<Product[]> {
     return this.productService.getProducts(filterDto);
   }
 
@@ -45,7 +51,26 @@ export class ProductController {
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-    //const { price } = updateProductDto;
     return this.productService.updateProduct(id, updateProductDto);
   }
+
+  @Post('/:image')
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './uploads',
+      }),
+    }),
+  )
+  uploadFile(@UploadedFile() file) {
+    return file;
+  }
+  
+
+  @Get('/image/:imgpath')
+  seeUpoaderFile(@Param('imgpath') image, @Res() res) {
+    return res.sendFile(image, { root: 'uploads' });
+  }
 }
+
+

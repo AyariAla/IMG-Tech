@@ -10,7 +10,6 @@ export class CreateProductdto {
   @IsNotEmpty()
   quantity: number;
 
-  /*
-    @@IsNotEmpty()
-    image: ;*/
+  @IsNotEmpty()
+  categoryID: number;
 }
